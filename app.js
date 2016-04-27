@@ -2,6 +2,7 @@ var express = require('express'),
        http = require('http'),
       chalk = require('chalk'),
      morgan = require('morgan'),
+       swig = require('swig'),
 
         app = express(),
        port = 3000,
@@ -17,6 +18,13 @@ server.on('request',app);
 // });
 
 //This does what the above function does ^
+
+//integrate view engine, swig
+app.engine('html',swig.renderFile);
+app.set('view engine', 'html');
+app.set('views', __dirname + '/views');
+swig.setDefaults({ cache: false });
+
 app.use(morgan('tiny'));
 
 app.use(/\/special.*/, function(req, res, next){
@@ -25,7 +33,8 @@ app.use(/\/special.*/, function(req, res, next){
 });
 
 app.get('/',function(req, res){
-  res.send('Hello World!');
+  var people = [{name: 'Full'}, {name: 'Stacker'}, {name: 'Son'}];
+res.render( 'index', {title: 'Hall of Fame', people: people} );
 });
 
 app.get('/news',function(req, res){
