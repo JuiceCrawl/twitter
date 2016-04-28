@@ -20,6 +20,19 @@ body {
   background-color: #f5f5f5;
 }
 
+/* Tweet Styling*/
+.tweet {
+  list-style: none;
+  clear: both;
+}
+.tweet img {
+  float: left;
+  margin: 0 15px 15px 0;
+}
+.tweet-text {
+  float: left;
+}
+
 
 /* Custom page CSS
 -------------------------------------------------- */
