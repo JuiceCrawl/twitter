@@ -5,11 +5,12 @@ var express = require('express'),
        swig = require('swig'),
      routes = require('./routes/'),
         app = express(),
+     socketio = require('socket.io'),
        port = 3000,
 
      server = http.createServer();
 
-server.on('request',app);
+server.on('request', app);
 
 // app.use(function(req, res, next){
 //   console.log(chalk.magenta(req.method), chalk.cyan(req.path), chalk.gray(res.statusCode));
@@ -20,7 +21,7 @@ server.on('request',app);
 //This does what the above function does ^
 
 //integrate view engine, swig
-app.engine('html',swig.renderFile);
+app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
 swig.setDefaults({ cache: false });
@@ -42,6 +43,8 @@ app.use('/', routes);
 //   res.send('Today is Wednesday. We are at Grace Hopper Academy');
 // });
 
-server.listen(port, function(){
+var server = app.listen(port, function(){
   console.log("Listening on port "+ port);
 });
+
+var io = socketio.listen(server);
