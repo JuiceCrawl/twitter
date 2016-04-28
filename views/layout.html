@@ -78,7 +78,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-    
+
     <!-- Socket.io library -->
     <script src="/socket.io/socket.io.js"></script>
     <script>
@@ -92,8 +92,12 @@
       // When 'new_tweet' events are fired, do something with the packaged tweet
       socket.on('new_tweet', function (tweet) { 
         console.log(tweet);
-        alert('Refreshing... check the console...');
       // some logic to add the new tweet to the DOM…
+      var li = document.createElement('li');
+      li.className = 'tweet';
+      li.innerHTML = `<img src="http://placehold.it/50x50" /> <div class="tweet-text"><a href="/users/${tweet.name}"><strong>${tweet.name}</strong></a><br/>${tweet.text}</div>`;
+      var tweetList = document.getElementById('tweet-list');
+      tweetList.appendChild(li);
       }); 
     </script>
   </body>
