@@ -3,7 +3,7 @@ var express = require('express'),
       chalk = require('chalk'),
      morgan = require('morgan'),
        swig = require('swig'),
-
+     routes = require('./routes/'),
         app = express(),
        port = 3000,
 
@@ -26,20 +26,21 @@ app.set('views', __dirname + '/views');
 swig.setDefaults({ cache: false });
 
 app.use(morgan('tiny'));
+app.use('/', routes);
 
-app.use(/\/special.*/, function(req, res, next){
-  console.log(chalk.yellow("You are special"));
-  next();
-});
+// app.use(/\/special.*/, function(req, res, next){
+//   console.log(chalk.yellow("You are special"));
+//   next();
+// });
 
-app.get('/',function(req, res){
-  var people = [{name: 'Full'}, {name: 'Stacker'}, {name: 'Son'}];
-  res.render( 'index', {title: 'Hall of Fame', people: people} );
-});
+// app.get('/',function(req, res){
+//   var people = [{name: 'Full'}, {name: 'Stacker'}, {name: 'Son'}];
+//   res.render( 'index', {title: 'Hall of Fame', people: people} );
+// });
 
-app.get('/news',function(req, res){
-  res.send('Today is Wednesday. We are at Grace Hopper Academy');
-});
+// app.get('/news',function(req, res){
+//   res.send('Today is Wednesday. We are at Grace Hopper Academy');
+// });
 
 server.listen(port, function(){
   console.log("Listening on port "+ port);
